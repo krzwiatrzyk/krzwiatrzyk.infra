@@ -40,6 +40,22 @@ output "cert_manager_access_key" {
   value = aws_iam_access_key.cert_manager.id
 }
 
+resource "aws_route53_record" "bayek" {
+  zone_id = var.windkube_zone_id
+  name    = "*.bayek.windkube.com"
+  type    = "A"
+  ttl     = 60
+  records = [var.bayek_cluster_ip]
+}
+
+resource "aws_route53_record" "bkf" {
+  zone_id = var.windkube_zone_id
+  name    = "*.bkf.windkube.com"
+  type    = "A"
+  ttl     = 60
+  records = [var.bkf_cluster_ip]
+}
+
 resource "aws_route53_record" "windkube" {
   zone_id = var.windkube_zone_id
   name    = "*.windkube.com"
