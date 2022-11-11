@@ -1,4 +1,4 @@
-
+# https://gaunacode.com/deploying-terraform-at-scale-with-github-actions
 name: Deploy Infrastructure
 
 on:
@@ -6,25 +6,106 @@ on:
     branches:
       - master
 
-jobs:
-  tf_fmt:
-    name: Deploy Infra
-    runs-on: ubuntu-latest
-    steps:
+# jobs:
+#   terraform:
+#     runs-on: ubuntu-latest
+#     name: Terraform
+#     environment: staging 
+#     steps:
+#     - name: Setup Terraform
+#       uses: hashicorp/setup-terraform@v2
+#       with:
+#         terraform_version: 1.1.9
+#         terraform_wrapper: false
 
-    - name: Checkout Repo
-      uses: actions/checkout@v1
+#     - name: Terraform Init
+#       id: init
+#       run: terraform init
+#       env:
+#         ARM_CLIENT_ID: ${{ secrets.CLIENT_ID }} # This doesn't have to be a secret. Client IDs are not sensitive.
+#         ARM_CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
+#         ARM_SUBSCRIPTION_ID: "[Your Subscription ID]"
+#         ARM_TENANT_ID: "[Your Tenant ID]"
+#       working-directory: ./staging # Use your environment folder
+#       shell: bash
 
-    - name: Terraform Init
-      uses: hashicorp/terraform-github-actions/init@v0.4.0
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        TF_ACTION_WORKING_DIR: 'terraform'
-        AWS_ACCESS_KEY_ID:  ${{ secrets.AWS_ACCESS_KEY_ID }}
-        AWS_SECRET_ACCESS_KEY:  ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+#     - name: Terraform Plan
+#       id: plan
+#       run: |
+#         terraform plan -input=false -no-color -out tf.plan
+#       env:
+#         ARM_CLIENT_ID: ${{ secrets.CLIENT_ID }} 
+#         ARM_CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
+#         ARM_SUBSCRIPTION_ID: "[Your Subscription ID]"
+#         ARM_TENANT_ID: "[Your Tenant ID]"
+#       working-directory: ./staging # Use your environment folder
+#       shell: bash
 
-    - name: Terraform Validate
-      uses: hashicorp/terraform-github-actions/validate@v0.3.7
+#     # .github/workflows/staging.yaml
+#     - name: Terraform Show
+#       id: show
+#       run: terraform show -no-color tf.plan 2>&1 > /tmp/plan.txt
+#       working-directory: ./staging # Use your environment folder
+#       env:
+#         ARM_CLIENT_ID: ${{ secrets.CLIENT_ID }} 
+#         ARM_CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
+#         ARM_SUBSCRIPTION_ID: "[Your Subscription ID]"
+#         ARM_TENANT_ID: "[Your Tenant ID]"
+#       shell: bash
+
+    # - uses: actions/github-script@v6
+    #   if: github.event_name == 'pull_request'
+    #   with:
+    #     github-token: ${{ inputs.GITHUB_TOKEN }}
+    #     script: |
+    #       const fs = require("fs");
+    #       const plan = fs.readFileSync("/tmp/plan.txt", "utf8");
+    #       const maxGitHubBodyCharacters = 65536;
+
+    #       function chunkSubstr(str, size) {
+    #         const numChunks = Math.ceil(str.length / size)
+    #         const chunks = new Array(numChunks)
+    #         for (let i = 0, o = 0; i < numChunks; ++i, o += size) {
+    #           chunks[i] = str.substr(o, size)
+    #         }
+    #         return chunks
+    #       }
+
+    #       // Split the Terraform plan into chunks if it's too big and can't fit into the GitHub Action
+    #       var plans = chunkSubstr(plan, maxGitHubBodyCharacters); 
+    #       for (let i = 0; i < plans.length; i++) {
+    #         const output = `### ${{ inputs.plan-title }} Part # ${i + 1}
+    #         #### Terraform Format and Style 🖌\`${{ steps.fmt.outcome }}\`
+    #         #### Terraform Initialization ⚙️\`${{ steps.init.outcome }}\`
+    #         #### Terraform Plan 📖\`${{ steps.plan.outcome }}\`
+    #         <details><summary>Show Plan</summary>
+    #         \`\`\`\n
+    #         ${plans[i]}
+    #         \`\`\`
+    #         </details>
+    #         *Pusher: @${{ github.actor }}, Action: \`${{ github.event_name }}\`, Working Directory: \`${{ inputs.working-directory }}\`, Workflow: \`${{ github.workflow }}\`*`;   
+
+    #         await github.rest.issues.createComment({
+    #           issue_number: context.issue.number,
+    #           owner: context.repo.owner,
+    #           repo: context.repo.repo,
+    #           body: output
+    #         })
+    #       }
+
+    # - name: Checkout Repo
+    #   uses: actions/checkout@v1
+
+    # - name: Terraform Init
+    #   uses: hashicorp/terraform-github-actions/init@v0.4.0
+    #   env:
+    #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    #     TF_ACTION_WORKING_DIR: 'terraform'
+    #     AWS_ACCESS_KEY_ID:  ${{ secrets.AWS_ACCESS_KEY_ID }}
+    #     AWS_SECRET_ACCESS_KEY:  ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
+    # - name: Terraform Validate
+    #   uses: hashicorp/terraform-github-actions/validate@v0.3.7
 
     # - name: Terraform Apply
     #   uses: hashicorp/terraform-github-actions/apply@v0.4.0
