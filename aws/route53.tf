@@ -33,4 +33,5 @@ resource "aws_iam_user_policy" "cert_manager" {
 
 output "cert_manager_access_key" {
   value = aws_iam_access_key.cert_manager.encrypted_secret
+  sensitive = true
 }
