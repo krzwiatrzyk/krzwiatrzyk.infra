@@ -1,0 +1,23 @@
+version: 3
+
+tasks:
+  localstack:start:
+    cmds:
+    - localstack start -d
+    status:
+    - localstack status | grep running
+  localstack:stop: localstack stop
+  localstack:status: localstack status services
+
+  install:terraform-local:
+    cmds:
+    - pip install terraform-local
+    status:
+    - command -v tflocal
+
+  test:aws:plan:
+    deps:
+    - localstack:start
+    dir: aws
+    cmds:
+    - tflocal plan
