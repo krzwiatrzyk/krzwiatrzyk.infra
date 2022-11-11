@@ -39,3 +39,11 @@ output "cert_manager_secret_key" {
 output "cert_manager_access_key" {
   value = aws_iam_access_key.cert_manager.id
 }
+
+resource "aws_route53_record" "windkube" {
+  zone_id = var.windkube_zone_id
+  name    = "*.windkube.com"
+  type    = "A"
+  ttl     = 60
+  records = [var.normandy_cluster_ip]
+}
