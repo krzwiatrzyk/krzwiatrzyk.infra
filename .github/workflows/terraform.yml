@@ -1,4 +1,5 @@
 # https://gaunacode.com/deploying-terraform-at-scale-with-github-actions
+# https://developer.hashicorp.com/terraform/tutorials/automation/github-actions <-- USE THIS
 name: Deploy Infrastructure
 
 on:
