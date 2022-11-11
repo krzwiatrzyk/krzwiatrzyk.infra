@@ -31,7 +31,11 @@ resource "aws_iam_user_policy" "cert_manager" {
   policy = local.iam_role_policy_text
 }
 
-output "cert_manager_access_key" {
-  value = aws_iam_access_key.cert_manager.encrypted_secret
+output "cert_manager_secret_key" {
+  value = aws_iam_access_key.cert_manager.secret
   sensitive = true
+}
+
+output "cert_manager_access_key" {
+  value = aws_iam_access_key.cert_manager.id
 }
