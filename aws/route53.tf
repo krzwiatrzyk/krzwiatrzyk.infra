@@ -63,3 +63,11 @@ resource "aws_route53_record" "windkube" {
   ttl     = 60
   records = [var.normandy_cluster_ip]
 }
+
+resource "aws_route53_record" "mirai" {
+  zone_id = var.windkube_zone_id
+  name    = "*.mirai.windkube.com"
+  type    = "A"
+  ttl     = 60
+  records = [var.mirai_cluster_ip]
+}
