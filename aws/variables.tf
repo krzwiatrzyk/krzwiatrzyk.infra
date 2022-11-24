@@ -22,3 +22,8 @@ variable "windkube_zone_id" {
     type = string
     default = "Z0886754348MMYNERKF0M"
 }
+
+variable "knative_cluster_ip" {
+    type = string
+    default = "192.168.1.200"
+}

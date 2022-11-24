@@ -71,3 +71,11 @@ resource "aws_route53_record" "mirai" {
   ttl     = 60
   records = [var.mirai_cluster_ip]
 }
+
+resource "aws_route53_record" "knative" {
+  zone_id = var.windkube_zone_id
+  name    = "*.knative.bayek.windkube.com"
+  type    = "A"
+  ttl     = 60
+  records = [var.knative_cluster_ip]
+}
