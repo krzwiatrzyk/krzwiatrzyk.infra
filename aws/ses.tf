@@ -48,4 +48,5 @@ output "ghost_blog_username" {
 
 output "ghost_blog_password" {
   value = aws_iam_access_key.ghost_blog.ses_smtp_password_v4
+  sensitive = true
 }
