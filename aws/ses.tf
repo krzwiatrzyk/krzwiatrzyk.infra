@@ -101,11 +101,36 @@ data "aws_iam_policy_document" "mail" {
       values = [local.account_id]
     }
 
-    # condition {
-    #   test = "StringEquals"
-    #   variable = "AWS:SourceArn"
-    #   values = ["arn:aws:ses:${aws.ses.region}:${local.account_id}:receipt-rule-set/rule_set_name:receipt-rule/receipt_rule_name"]
-    # }
+    condition {
+      test = "StringEquals"
+      variable = "AWS:SourceArn"
+      values = ["arn:aws:ses:${aws.ses.region}:${local.account_id}:receipt-rule-set/forward-to-s3:receipt-rule/store"]
+    }
 
+  }
+}
+
+
+resource "aws_ses_receipt_rule_set" "mail" {
+  provider = aws.ses
+  rule_set_name = "forward-to-s3"
+}
+
+resource "aws_ses_receipt_rule" "store" {
+  name          = "store"
+  rule_set_name = "forward-to-s3"
+  recipients    = ["no-reply@windkube.com"]
+  enabled       = true
+  scan_enabled  = true
+
+  # add_header_action {
+  #   header_name  = "Custom-Header"
+  #   header_value = "Added by SES"
+  #   position     = 1
+  # }
+
+  s3_action {
+    bucket_name = "windkube-mails"
+    position    = 2
   }
 }
