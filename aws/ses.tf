@@ -59,7 +59,7 @@ resource "aws_route53_record" "mail" {
   name    = "windkube.com"
   type    = "MX"
   ttl     = 60
-  records = ["inbound-smtp.eu-west-1.amazonaws.com"]
+  records = ["10 inbound-smtp.eu-west-1.amazonaws.com"]
 }
 
 resource "aws_s3_bucket" "mail" {
