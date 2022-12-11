@@ -136,3 +136,8 @@ resource "aws_ses_receipt_rule" "store" {
   # }
 
 }
+
+resource "aws_ses_active_receipt_rule_set" "mail" {
+  provider = aws.ses
+  rule_set_name = aws_ses_receipt_rule_set.mail.id
+}
