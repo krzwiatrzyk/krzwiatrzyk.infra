@@ -104,7 +104,7 @@ data "aws_iam_policy_document" "mail" {
     condition {
       test = "StringEquals"
       variable = "AWS:SourceArn"
-      values = ["arn:aws:ses:${data.aws_region.ses}:${local.account_id}:receipt-rule-set/forward-to-s3:receipt-rule/store"]
+      values = ["arn:aws:ses:${data.aws_region.ses.name}:${local.account_id}:receipt-rule-set/forward-to-s3:receipt-rule/store"]
     }
 
   }
