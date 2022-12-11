@@ -118,10 +118,15 @@ resource "aws_ses_receipt_rule_set" "mail" {
 
 resource "aws_ses_receipt_rule" "store" {
   name          = "store"
-  rule_set_name = "forward-to-s3"
+  rule_set_name = aws_ses_receipt_rule_set.mail.id
   recipients    = ["no-reply@windkube.com"]
   enabled       = true
   scan_enabled  = true
+
+  s3_action {
+    bucket_name = aws_s3_bucket.mail.id
+    position    = 1
+  }
 
   # add_header_action {
   #   header_name  = "Custom-Header"
@@ -129,8 +134,4 @@ resource "aws_ses_receipt_rule" "store" {
   #   position     = 1
   # }
 
-  s3_action {
-    bucket_name = "windkube-mails"
-    position    = 1
-  }
 }
