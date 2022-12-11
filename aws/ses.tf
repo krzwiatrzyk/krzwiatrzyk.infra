@@ -49,13 +49,11 @@ resource "aws_iam_user_policy_attachment" "ghost_blog_ses_sender" {
 
 output "ghost_blog_username" {
   value = aws_iam_access_key.ghost_blog.id
-  provider = aws.ses
 }
 
 output "ghost_blog_password" {
   value = aws_iam_access_key.ghost_blog.ses_smtp_password_v4
   sensitive = true
-  provider = aws.ses
 }
 
 resource "aws_route53_record" "mail" {
