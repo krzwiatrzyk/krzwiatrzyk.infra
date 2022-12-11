@@ -127,6 +127,7 @@ resource "aws_ses_receipt_rule" "store" {
   s3_action {
     bucket_name = aws_s3_bucket.mail.id
     position    = 1
+    object_key_prefix = "no-reply/"
   }
 
   # add_header_action {
