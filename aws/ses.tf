@@ -131,6 +131,6 @@ resource "aws_ses_receipt_rule" "store" {
 
   s3_action {
     bucket_name = "windkube-mails"
-    position    = 2
+    position    = 1
   }
 }

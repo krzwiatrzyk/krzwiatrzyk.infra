@@ -5,5 +5,5 @@ locals {
 }
 
 data "aws_region" "ses" {
-  provider = "aws.ses"
+  provider = aws.ses
 }
