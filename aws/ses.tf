@@ -21,10 +21,12 @@ resource "aws_ses_domain_identity_verification" "windkube" {
 
 resource "aws_iam_user" "ghost_blog" {
   name = "ghost_blog"
+  provider = aws.ses
 }
 
 resource "aws_iam_access_key" "ghost_blog" {
   user = aws_iam_user.ghost_blog.name
+  provider = aws.ses
 }
 
 data "aws_iam_policy_document" "ses_sender" {
@@ -47,11 +49,13 @@ resource "aws_iam_user_policy_attachment" "ghost_blog_ses_sender" {
 
 output "ghost_blog_username" {
   value = aws_iam_access_key.ghost_blog.id
+  provider = aws.ses
 }
 
 output "ghost_blog_password" {
   value = aws_iam_access_key.ghost_blog.ses_smtp_password_v4
   sensitive = true
+  provider = aws.ses
 }
 
 resource "aws_route53_record" "mail" {
