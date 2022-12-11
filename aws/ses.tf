@@ -117,6 +117,7 @@ resource "aws_ses_receipt_rule_set" "mail" {
 }
 
 resource "aws_ses_receipt_rule" "store" {
+  provider = aws.ses
   name          = "store"
   rule_set_name = aws_ses_receipt_rule_set.mail.id
   recipients    = ["no-reply@windkube.com"]
