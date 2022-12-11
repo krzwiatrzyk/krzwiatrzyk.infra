@@ -46,7 +46,7 @@ resource "aws_iam_user_policy_attachment" "ghost_blog_ses_sender" {
 }
 
 output "ghost_blog_username" {
-  value = aws_iam_access_key.ghost_blog.id
+  value = aws_iam_access_key.ghost_blog.smtp_user.id
 }
 
 output "ghost_blog_password" {
