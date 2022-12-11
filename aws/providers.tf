@@ -12,3 +12,8 @@ provider "aws" {
   # AWS_SECRET_ACCESS_KEY 
   region = "eu-central-1"
 }
+
+provider "aws" {
+  alias = "ses"
+  region = "eu-west-1"
+}
