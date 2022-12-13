@@ -79,3 +79,11 @@ resource "aws_route53_record" "knative" {
   ttl     = 60
   records = [var.knative_cluster_ip]
 }
+
+resource "aws_route53_record" "main" {
+  zone_id = var.windkube_zone_id
+  name    = "windkube.com"
+  type    = "A"
+  ttl     = 60
+  records = ["75.2.60.5"] 
+}
