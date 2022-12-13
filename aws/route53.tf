@@ -87,3 +87,11 @@ resource "aws_route53_record" "main" {
   ttl     = 60
   records = ["75.2.60.5"] 
 }
+
+resource "aws_route53_record" "www" {
+  zone_id = var.windkube_zone_id
+  name    = "www"
+  type    = "CNAME"
+  ttl     = 60
+  records = ["windkube.com"] 
+}
