@@ -61,7 +61,7 @@ resource "aws_route53_record" "windkube" {
   name    = "*.windkube.com"
   type    = "A"
   ttl     = 60
-  records = [var.normandy_cluster_ip]
+  records = [var.mirai_cluster_ip]
 }
 
 resource "aws_route53_record" "mirai" {
