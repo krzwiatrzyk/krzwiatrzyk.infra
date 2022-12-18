@@ -95,3 +95,11 @@ resource "aws_route53_record" "www" {
   ttl     = 60
   records = ["windkube.com"] 
 }
+
+resource "aws_route53_record" "nextcloud" {
+  zone_id = var.windkube_zone_id
+  name    = "nextcloud"
+  type    = "CNAME"
+  ttl     = 60
+  records = ["nx31496.your-storageshare.de"] 
+}
