@@ -106,8 +106,8 @@ resource "aws_route53_record" "nextcloud" {
 
 resource "aws_route53_record" "google_search_console_verification" {
   zone_id = var.windkube_zone_id
-  name = "windkube.com"
-  type = TXT
+  name = ""
+  type = "TXT"
   ttl = 60
   records = ["google-site-verification=QjKur-aqM6momhfzjTuBOeW_y3cGr8VloZkEQuUajOg"]
 }
