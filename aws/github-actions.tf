@@ -1,6 +1,8 @@
 resource "aws_iam_role" "github_actions" {
   name               = "github_actions"
 
+  assume_role_policy = data.aws_iam_policy_document.ecr_write_access.json
+
   inline_policy {
     name   = "ecr-write-access"
     policy = data.aws_iam_policy_document.ecr_write_access.json
