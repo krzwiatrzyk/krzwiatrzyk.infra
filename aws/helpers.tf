@@ -7,3 +7,5 @@ locals {
 data "aws_region" "ses" {
   provider = aws.ses
 }
+
+data "aws_region" "current" {}
